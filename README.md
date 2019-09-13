@@ -5,6 +5,7 @@
 ![logo](https://raw.githubusercontent.com/peak-ai/ais-service-discovery-python/master/logo.png)
 
 ## Description
+
 This repository interfaces Serice Discovery, in this instance CloudMap, in order to locate and communicate with different services. As opposed to storing ARN's in environment variables, this library will interface CloudMap to find a service by a user friendly naming convention, and will understand what 'type' of service you've requested, and use the correct code to communicate/call that service.
 
 ## Services supported
