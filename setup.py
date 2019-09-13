@@ -8,10 +8,10 @@ with open('requirements.txt') as requirements:
 
 setup(
     name='ais_service_discovery',
-    version='0.0.1',
+    version='0.0.5',
     author='Peak AI',
     author_email='infra-notifications@peak.ai',
-    description='AIS service discovery package for python',
+    description='AIS service discovery package for python3',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/peak-ai/ais-service-discovery-python',

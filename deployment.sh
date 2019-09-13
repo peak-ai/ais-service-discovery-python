@@ -1,10 +1,11 @@
-echo Upgrading pip
-python3 -m ensurepip --upgrade
-
 echo Upgrading Build Tools
-python3 -m pip install --user --upgrade setuptools wheel twine
+pip3 install --upgrade setuptools wheel
+
+echo Upgrading publish Tools
+pip3 install --upgrade twine
 
 echo Builing package
+rm -rf *.egg-info build dist
 python3 setup.py sdist bdist_wheel
 
 echo Uploading Package to PyPI

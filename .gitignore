@@ -25,3 +25,4 @@ share/python-wheels/
 MANIFEST
 
 .pypirc
+venv/
