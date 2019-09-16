@@ -36,4 +36,4 @@ def call_service(namespace, service, handler, body, opts={}):
     if (payload and type(payload) is dict and
             ('errorMessage' in payload) and ('errorMessage' in payload)):
         raise Exception(payload)
-    return payload
+    return dumps(payload)
