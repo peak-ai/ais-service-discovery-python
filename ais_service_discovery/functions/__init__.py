@@ -10,7 +10,7 @@ class LambdaAdaptor:
         if 'Payload' in res:
             payload = res['Payload'].read()
             if payload:
-                return payload.decode()
+                return loads(payload.decode())
             return res['StatusCode']
         return res['StatusCode']
 
