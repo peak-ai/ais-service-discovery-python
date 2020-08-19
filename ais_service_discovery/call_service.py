@@ -2,9 +2,11 @@ from boto3 import client
 from .services import default_namespace, extract_service_parts, Services, \
     CloudmapAdapter
 from .functions import LambdaAdaptor, Func
+from .sns import SnsAdaptor, Publish
 from json import dumps
 
 function = client('lambda')
+sns = client('sns')
 service_discovery = client('servicediscovery')
 
 cloudmap_adaptor = CloudmapAdapter(service_discovery)
@@ -13,6 +15,8 @@ services = Services(cloudmap_adaptor)
 lambda_adaptor = LambdaAdaptor(function)
 func = Func(lambda_adaptor)
 
+sns_adaptor = SnsAdaptor(sns)
+publish = Publish(sns_adaptor)
 
 def run_service(service, body, opts={}):
     type = service['Attributes']['type']
@@ -20,6 +24,12 @@ def run_service(service, body, opts={}):
         return func.call(**{
             'FunctionName': service['Attributes']['arn'],
             'Payload': dumps(body),
+            **opts
+        })
+    if type in ['event']:
+        return publish.call(**{
+            'TopicArn': service['Attributes']['arn'],
+            'Message': dumps(body),
             **opts
         })
     return None

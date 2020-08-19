@@ -11,10 +11,10 @@ This repository interfaces Service Discovery, in this instance CloudMap, in orde
 
 ## Services supported
 - Lambda (`call`).
+- SNS (`publish`)
 
 ## TODO
 - Lambda (`request`)
-- SNS (`publish`). // subscribe not supported by SNS.
 - SQS (`queue`|`listen`),
 - Http (`request`|`call`).
 - Fargate/ECS Task (`run`).
