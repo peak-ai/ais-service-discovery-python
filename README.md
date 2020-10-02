@@ -1,5 +1,7 @@
 # ais-service-discovery-python
 
+![CodeQuality](https://github.com/peak-ai/ais-service-discovery-python/workflows/CodeQL/badge.svg) ![Publish](https://github.com/peak-ai/ais-service-discovery-python/workflows/Upload%20Python%20Package/badge.svg) ![stable](https://img.shields.io/github/v/release/peak-ai/ais-service-discovery-python) ![](https://img.shields.io/github/v/release/peak-ai/ais-service-discovery-python?include_prereleases) ![](https://img.shields.io/github/license/peak-ai/ais-service-discovery-python) ![](https://img.shields.io/github/languages/count/peak-ai/ais-service-discovery-python) ![](https://img.shields.io/github/languages/top/peak-ai/ais-service-discovery-python) ![](https://img.shields.io/github/issues-raw/peak-ai/ais-service-discovery-python) ![](https://img.shields.io/github/issues-pr-raw/peak-ai/ais-service-discovery-python) ![](https://img.shields.io/github/languages/code-size/peak-ai/ais-service-discovery-python) ![](https://img.shields.io/github/repo-size/peak-ai/ais-service-discovery-python)
+
 ## Cloud Application Framework
 
 ![logo](https://raw.githubusercontent.com/peak-ai/ais-service-discovery-python/master/logo.png)
