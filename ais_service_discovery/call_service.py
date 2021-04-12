@@ -3,10 +3,12 @@ from .services import default_namespace, extract_service_parts, Services, \
     CloudmapAdapter
 from .functions import LambdaAdaptor, Func
 from .sns import SnsAdaptor, Publish
+from .sqs import SqsAdaptor, Send
 from json import dumps
 
 function = client('lambda')
 sns = client('sns')
+sqs = client('sqs')
 service_discovery = client('servicediscovery')
 
 cloudmap_adaptor = CloudmapAdapter(service_discovery)
@@ -17,6 +19,9 @@ func = Func(lambda_adaptor)
 
 sns_adaptor = SnsAdaptor(sns)
 publish = Publish(sns_adaptor)
+
+sqs_adaptor = SqsAdaptor(sqs)
+send = Send(sqs_adaptor)
 
 def run_service(service, body, opts={}):
     type = service['Attributes']['type']
@@ -30,6 +35,12 @@ def run_service(service, body, opts={}):
         return publish.call(**{
             'TopicArn': service['Attributes']['arn'],
             'Message': dumps(body),
+            **opts
+        })
+    if type in ['queue']:
+        return send.call(**{
+            'QueueUrl': service['Attributes']['url'],
+            'MessageBody': dumps(body),
             **opts
         })
     return None
