@@ -37,7 +37,7 @@ def run_service(service, body, opts={}):
             'Message': dumps(body),
             **opts
         })
-    if type in ['queue']:
+    if type in ['queue', 'sqs']:
         return send.call(**{
             'QueueUrl': service['Attributes']['url'],
             'MessageBody': dumps(body),
