@@ -14,7 +14,8 @@ This repository interfaces Service Discovery, in this instance CloudMap, in orde
 ## Services supported
 - Lambda (`call`).
 - SNS (`publish`).
-- SQS (`send`).
+- SQS (`queue`).
+
 
 ## TODO
 - Lambda (`request`).
