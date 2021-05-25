@@ -7,7 +7,7 @@ class CloudmapAdapter:
         
         return {
             **response,
-            'instances': list(filter(filter_function, response['Instances']))
+            'Instances': list(filter(filter_function, response['Instances']))
         }
 
     def discover(self, namespace, name, id):

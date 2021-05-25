@@ -57,7 +57,7 @@ def run_service(service, body, opts={}):
 
 def call_service(namespace, service, handler, body, opts={}):
     instances = services.discover(
-        namespace or default_namespace(), service, handler)['instances']
+        namespace or default_namespace(), service, handler)['Instances']
     if not instances:
         raise Exception('Service {}.{}.{} not found'.format(
             namespace or default_namespace(), service, handler))
