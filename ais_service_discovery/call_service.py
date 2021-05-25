@@ -10,8 +10,8 @@ from json import dumps
 from botocore.config import Config
 
 
-BOTO_MAX_ATTEMPTS = env.get('BOTO_MAX_ATTEMPTS', 10)
-BOTO_READ_TIMEOUT = env.get('BOTO_READ_TIMEOUT', 300)
+BOTO_MAX_ATTEMPTS = int(env.get('BOTO_MAX_ATTEMPTS', 10))
+BOTO_READ_TIMEOUT = float(env.get('BOTO_READ_TIMEOUT', 300))
 
 config = Config(read_timeout=BOTO_READ_TIMEOUT, retries={'max_attempts': BOTO_MAX_ATTEMPTS})
 
