@@ -18,15 +18,16 @@ This repository interfaces Service Discovery, in this instance CloudMap, in orde
 
 
 ## TODO
-- Lambda (`request`).
-- SQS (`listen`).
 - Http (`request`|`call`).
 - Fargate/ECS Task (`run`).
 
-## Note:
+
+## Note
+
 This library requires *Python 3.5 and above*.
 
-## Examples:
+
+## Examples
 
 ### Lambda Call
 
@@ -43,3 +44,13 @@ from ais_service_discovery import call
 response=call('namespace', 'service', 'handler', {<Payload>}, {'InvocationType': 'Event'})
 print(response)
 ```
+
+## Configuration
+
+This library can utilise the following environment variables:
+
+```
+BOTO_MAX_ATTEMPTS=10 // Boto3 exponential back-off attemps
+BOTO_READ_TIMEOUT=300 // Boto3 timeout 
+```
+
