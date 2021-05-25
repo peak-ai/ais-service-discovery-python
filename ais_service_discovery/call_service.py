@@ -1,3 +1,4 @@
+from os import environ as env
 from boto3 import client
 from .services import default_namespace, extract_service_parts, Services, \
     CloudmapAdapter
@@ -6,10 +7,18 @@ from .sns import SnsAdaptor, Publish
 from .sqs import SqsAdaptor, Send
 from json import dumps
 
-function = client('lambda')
-sns = client('sns')
-sqs = client('sqs')
-service_discovery = client('servicediscovery')
+from botocore.config import Config
+
+
+BOTO_MAX_ATTEMPTS = env.get('BOTO_MAX_ATTEMPTS', 10)
+BOTO_READ_TIMEOUT = env.get('BOTO_READ_TIMEOUT', 300)
+
+config = Config(read_timeout=BOTO_READ_TIMEOUT, retries={'max_attempts': BOTO_MAX_ATTEMPTS})
+
+function = client('lambda', config=config)
+sns = client('sns', config=config)
+sqs = client('sqs', config=config)
+service_discovery = client('servicediscovery', config=config)
 
 cloudmap_adaptor = CloudmapAdapter(service_discovery)
 services = Services(cloudmap_adaptor)
@@ -48,7 +57,7 @@ def run_service(service, body, opts={}):
 
 def call_service(namespace, service, handler, body, opts={}):
     instances = services.discover(
-        namespace or default_namespace(), service, handler)['Instances']
+        namespace or default_namespace(), service, handler)['instances']
     if not instances:
         raise Exception('Service {}.{}.{} not found'.format(
             namespace or default_namespace(), service, handler))
@@ -58,3 +67,4 @@ def call_service(namespace, service, handler, body, opts={}):
             ('errorMessage' in payload) and ('errorMessage' in payload)):
         raise Exception(payload)
     return dumps(payload)
+

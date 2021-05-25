@@ -4,10 +4,10 @@ class CloudmapAdapter:
 
     def filter_instances(self, response, id):
         filter_function = lambda instance : instance['InstanceId'] == id
-
+        
         return {
             **response,
-            'Instances': filter(filter_function, response['Instances'])
+            'instances': list(filter(filter_function, response['Instances']))
         }
 
     def discover(self, namespace, name, id):
@@ -15,3 +15,4 @@ class CloudmapAdapter:
             NamespaceName=namespace,
             ServiceName=name
         ), id)
+
