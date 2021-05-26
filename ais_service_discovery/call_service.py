@@ -10,10 +10,10 @@ from json import dumps
 from botocore.config import Config
 
 
-BOTO_MAX_ATTEMPTS = int(env.get('BOTO_MAX_ATTEMPTS', 10))
-BOTO_READ_TIMEOUT = float(env.get('BOTO_READ_TIMEOUT', 300))
+BOTO_MAX_ATTEMPTS = int(env.get('BOTO_MAX_ATTEMPTS', 1))
+BOTO_READ_TIMEOUT = float(env.get('BOTO_READ_TIMEOUT', 5))
 
-config = Config(read_timeout=BOTO_READ_TIMEOUT, retries={'max_attempts': BOTO_MAX_ATTEMPTS})
+config = Config(read_timeout=BOTO_READ_TIMEOUT, retries={'total_max_attempts': BOTO_MAX_ATTEMPTS})
 
 function = client('lambda', config=config)
 sns = client('sns', config=config)
