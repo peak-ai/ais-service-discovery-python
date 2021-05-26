@@ -18,8 +18,10 @@ This repository interfaces Service Discovery, in this instance CloudMap, in orde
 
 
 ## TODO
+- SQS (`listen`).
 - Http (`request`|`call`).
 - Fargate/ECS Task (`run`).
+- Lambda (`request`).
 
 
 ## Note
