@@ -1,6 +1,6 @@
 from ais_service_discovery.discovery import DiscoveryFactory
 
-discovery = DiscoveryFactory.instance("ais-latest", "test-service")
+discovery = DiscoveryFactory.instance("example-namespace", "test-service")
 
 instance = discovery.register("test", "dataset", {
     "schema": "stage",
