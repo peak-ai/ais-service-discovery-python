@@ -2,8 +2,8 @@ class CloudmapAdapter:
     def __init__(self, client):
         self.client = client
 
-    def filter_instances(self, response, sid):
-        filter_function = lambda instance : instance['InstanceId'] == sid
+    def filter_instances(self, response, instance_id):
+        filter_function = lambda instance : instance['InstanceId'] == instance_id
         return {
             **response,
             'Instances': filter(filter_function, response['Instances'])
