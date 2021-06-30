@@ -26,3 +26,5 @@ MANIFEST
 
 .pypirc
 venv/
+env/
+.idea/
