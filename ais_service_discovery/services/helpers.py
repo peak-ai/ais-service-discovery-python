@@ -19,7 +19,7 @@ def get_handler(service_id):
 
 
 def extract_service_parts(service_id):
-    '''
+    """
     This takes a service_id in the user-facing form and
     reconsitutes it into parts an in our internal form.
     For example, `namespace.service->handler`, becomes
@@ -28,7 +28,7 @@ def extract_service_parts(service_id):
     This is because we have to differentiate between the three segments as
     there's no way of assuring which is a namespace and which is a service,
     as a namespace is optional.
-    '''
+    """
     # If service ID contains a NAMESPACE_NOTATION - which denotes that
     # the ID contains both a namespace and a service.
     # Split the two, check for a handler
@@ -40,13 +40,13 @@ def extract_service_parts(service_id):
         if has_handler:
             [service_name, handler] = has_handler
             return {
-             'namespace': namespace,
-             'service': service_name,
-             'handler': handler
+                'namespace': namespace,
+                'service': service_name,
+                'handler': handler
              }
         return {
-         'namespace': namespace,
-         'service': service
+            'namespace': namespace,
+            'service': service
          }
     # If service has a function handler
     # return service with handler in base format.
@@ -54,12 +54,12 @@ def extract_service_parts(service_id):
     if has_handler:
         [service_name, handler] = has_handler
         return {
-         'namespace': default_namespace(),
-         'service': service_name,
-         'handler': handler
+            'namespace': default_namespace(),
+            'service': service_name,
+            'handler': handler,
         }
     # Default behavior, returns serviceId given, with the default namespace.
     return {
-     'namespace': default_namespace(),
-     'service': service_id,
+        'namespace': default_namespace(),
+        'service': service_id,
     }
