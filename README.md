@@ -54,5 +54,6 @@ This library can utilise the following environment variables:
 ```
 BOTO_MAX_ATTEMPTS=10 // Boto3 exponential back-off attemps
 BOTO_READ_TIMEOUT=300 // Boto3 timeout 
+BOTO_CONNECTION_TIMEOUT=60 // Boto3 connection timeout
 ```
 
