@@ -44,7 +44,7 @@ sqs_adaptor = SqsAdaptor(sqs)
 send = Send(sqs_adaptor)
 
 
-def run_service(service, body, opts):
+def run_service(service, body, opts={}):
     """ run_service """
     service_type = service['Attributes']['type']
     if service_type in ['cloud-function', 'function', 'lambda']:
