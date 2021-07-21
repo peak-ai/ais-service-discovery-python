@@ -68,7 +68,7 @@ def run_service(service, body, opts={}):
     return None
 
 
-def call_service(namespace, service, handler, body, opts):
+def call_service(namespace, service, handler, body, opts={}):
     """ call_service """
     instances = services.discover(
         namespace or default_namespace(), service, handler)['Instances']
