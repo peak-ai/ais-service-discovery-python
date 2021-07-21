@@ -23,7 +23,7 @@ BOTO_CONNECTION_TIMEOUT = float(env.get('BOTO_CONNECTION_TIMEOUT', 60))
 config = Config(
     read_timeout=BOTO_READ_TIMEOUT,
     retries={'total_max_attempts': BOTO_MAX_ATTEMPTS},
-    connection_timeout=BOTO_CONNECTION_TIMEOUT
+    connect_timeout=BOTO_CONNECTION_TIMEOUT
 )
 
 function = client('lambda', config=config)
