@@ -77,7 +77,7 @@ def call_service(namespace, service, handler, body, opts={}):
             namespace or default_namespace(), service, handler))
     [service_to_run] = instances
     payload = run_service(service_to_run, body, opts)
-    if (payload and isinstance(payload) is dict and
+    if (payload and isinstance(payload, dict) and
             ('errorMessage' in payload) and ('errorMessage' in payload)):
         raise Exception(payload)
     return dumps(payload)
