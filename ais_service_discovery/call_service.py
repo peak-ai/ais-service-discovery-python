@@ -23,7 +23,8 @@ publish = Publish(sns_adaptor)
 sqs_adaptor = SqsAdaptor(sqs)
 send = Send(sqs_adaptor)
 
-def run_service(service, body, opts={}):
+
+def run_service(service, body, opts = {}):
     type = service['Attributes']['type']
     if type in ['cloud-function', 'function', 'lambda']:
         return func.call(**{
