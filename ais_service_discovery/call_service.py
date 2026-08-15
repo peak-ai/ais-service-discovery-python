@@ -1,15 +1,35 @@
+"""
+call_service
+
+Calls services via the service discovery library
+"""
+from os import environ as env
+from json import dumps
+
 from boto3 import client
-from .services import default_namespace, extract_service_parts, Services, \
+from botocore.config import Config
+
+from .services import default_namespace, Services, \
     CloudmapAdapter
 from .functions import LambdaAdaptor, Func
 from .sns import SnsAdaptor, Publish
 from .sqs import SqsAdaptor, Send
-from json import dumps
 
-function = client('lambda')
-sns = client('sns')
-sqs = client('sqs')
-service_discovery = client('servicediscovery')
+
+BOTO_MAX_ATTEMPTS = int(env.get('BOTO_MAX_ATTEMPTS', 1))
+BOTO_READ_TIMEOUT = float(env.get('BOTO_READ_TIMEOUT', 5))
+BOTO_CONNECTION_TIMEOUT = float(env.get('BOTO_CONNECTION_TIMEOUT', 60))
+
+config = Config(
+    read_timeout=BOTO_READ_TIMEOUT,
+    retries={'total_max_attempts': BOTO_MAX_ATTEMPTS},
+    connect_timeout=BOTO_CONNECTION_TIMEOUT
+)
+
+function = client('lambda', config=config)
+sns = client('sns', config=config)
+sqs = client('sqs', config=config)
+service_discovery = client('servicediscovery', config=config)
 
 cloudmap_adaptor = CloudmapAdapter(service_discovery)
 services = Services(cloudmap_adaptor)
@@ -23,9 +43,11 @@ publish = Publish(sns_adaptor)
 sqs_adaptor = SqsAdaptor(sqs)
 send = Send(sqs_adaptor)
 
+
 def run_service(service, body, opts={}):
-    type = service['Attributes']['type']
-    if type in ['cloud-function', 'function', 'lambda']:
+    """ run_service """
+    service_type = service['Attributes']['type']
+    if service_type in ['cloud-function', 'function', 'lambda']:
         return func.call(**{
             'FunctionName': service['Attributes']['arn'],
             'Payload': dumps(body),
@@ -47,6 +69,7 @@ def run_service(service, body, opts={}):
 
 
 def call_service(namespace, service, handler, body, opts={}):
+    """ call_service """
     instances = services.discover(
         namespace or default_namespace(), service, handler)['Instances']
     if not instances:
@@ -54,7 +77,7 @@ def call_service(namespace, service, handler, body, opts={}):
             namespace or default_namespace(), service, handler))
     [service_to_run] = instances
     payload = run_service(service_to_run, body, opts)
-    if (payload and type(payload) is dict and
+    if (payload and isinstance(payload, dict) and
             ('errorMessage' in payload) and ('errorMessage' in payload)):
         raise Exception(payload)
     return dumps(payload)
